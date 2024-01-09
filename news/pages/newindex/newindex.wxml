@@ -1,0 +1,41 @@
+<!--index.wxml-->
+<view class="container">
+  <!--轮播图-->
+  <swiper class="swiper-wrapper" autoplay="true" circular="true" indicator-dots="true" indicator-color="#fff" indicator-active-color="#FFA042">
+      <swiper-item class="swiper-item">
+        <image class="slider-image" src="/images/s1.png" mode="widthFix"></image>
+      </swiper-item>
+      <swiper-item class="swiper-item">
+        <image class="slider-image" src="/images/s2.png" mode="widthFix"></image>
+      </swiper-item>
+      <swiper-item class="swiper-item">
+        <image class="slider-image" src="/images/s3.png" mode="widthFix"></image>
+      </swiper-item>
+  </swiper>
+
+  <view class="bargain-wrapper">
+    <view class="bargain-header">
+      <text>新闻管理</text> 
+    </view>
+    <view class="bargain-item" wx:for="{{bargainList}}" wx:key="*this"  data-index="{{item.id}}" bindtap="gdxq">
+      <image class="bargain-img" src="/images/{{item.photo}}.png"></image>
+      <view class="bargain-info">
+        <view class="info-header">
+          <text class="title">{{item.title}}</text>
+          <text class="desc">类型:{{item.typename}} </text>
+          <text>简介：{{item.introduction}}</text>
+          <text style="margin-top: 10%;">时间:{{item.addtime}}</text>
+        </view>
+      </view>
+    </view>
+
+    
+
+
+  </view>
+
+  <!--到底提示-->
+  <view class="bottom-tip">
+    <text>到底了，再往上逛逛吧~</text>
+  </view>
+</view>

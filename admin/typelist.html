@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bgf">
+    
+    <div class="cheader">
+        <div class="w1200 clearfix">
+            <div class="fl lp clearfix">
+                <div class="logo fl"><a href=""><img src="../image/logo.jpg" alt=""></a></div>
+                <div class="v-type fl">
+                    <a href="index.html">首页</a>                 
+                    <a href="typelist.html?tid=1">分类</a>
+                    
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+    <!-- 主体 -->
+    <div class="content mb80">
+        <div class="typePart">
+            <div class="w1200">
+                <div class="type-item clearfix">
+                    <div class="fl d1">类型</div>
+                    
+                    <div class="fl d3" id="tlist">
+                        <a href="typelist.html?tid=1">网络新闻</a>
+                        <a href="typelist.html?tid=2">资讯新闻</a>
+                        <a href="typelist.html?tid=3">明星新闻</a>
+                        <a href="typelist.html?tid=4">八卦新闻</a>
+                        <a href="typelist.html?tid=5">头条新闻</a>
+                        <a href="typelist.html?tid=6">国际新闻</a>
+                        <a href="typelist.html?tid=7">国内新闻</a>
+                        <a href="typelist.html?tid=8">政治新闻</a>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+        
+        <div class="type-con">
+            <div class="w1200">
+                
+                <div class="shadow-block"></div>
+                <div class="recommend_head clearfix">
+                    <div class="fl recommend_type clearfix">
+                        <h2 class="fl">分类列表</h2>
+                    </div>
+                    
+                </div>
+                <div class="list">
+                    <ul class="clearfix" id="menulist">
+                        
+                        
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="w1200 clearfix" >
+            
+            <div class="con fl2" style="text-align: center;">
+                <div class="d1">
+                    <a href="">关于我们</a>
+                    <span>｜</span>
+                    <a href="">使用帮助</a>
+                    <span>｜</span>
+                    <a href="">联系我们</a>
+                    <span>｜</span>
+                    
+                </div>
+                <div class="d2">欢迎来到新闻网站系统，该网站版权归属于作者</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://img.chuandong.com/common/script/jquery2.1.js"></script>
+   
+
+
+
+<script>
+    $(function(){
+        
+        var param1 = window.location.search.split('=')[1];
+        var where="";
+        if(param1=="1")
+        {
+
+            where="网络新闻"
+        }
+        if(param1=="2")
+        {
+
+            where="资讯新闻"
+        }
+        if(param1=="3")
+        {
+
+            where="明星新闻"
+        }
+        if(param1=="4")
+        {
+
+            where="八卦新闻"
+        }
+        if(param1=="5")
+        {
+
+            where="头条新闻"
+        }
+        if(param1=="6")
+        {
+
+            where="国际新闻"
+        }
+        if(param1=="7")
+        {
+
+            where="国内新闻"
+        }
+        if(param1=="8")
+        {
+
+            where="政治新闻"
+        }
+       //
+        $.ajax({
+                url: "http://127.0.0.1:8012/api/SelectNewsWhereAll",
+                type: 'POST',
+                async: false,
+                // dataType: 'html',   
+                data:{typename:where}, 
+                success: function (data)
+                 {
+                    var arr=data;
+                    var html='';
+                    for(var i=0;i<arr.length;i++)     
+                    {
+                        // alert(arr[i].id);
+                        html+='<li>';
+                        html+='<a href="czinformation.html?id='+arr[i].id+'">';
+                        html+='<div class="cover"><img src="/image/'+arr[i].photo+'.png" alt="" style="width:220px;height:160px;"></div>';
+                        html+='<div class="con">';
+                        html+='<p class="title">'+arr[i].title+'</p>';
+                        html+='<div class="clearfix">';
+                        html+='<span class="price fl">类型：'+arr[i].typename+'</span>';
+                        
+                        html+='</div>';
+                        html+='</div>';
+                        html+='</a>';
+                        html+='</li>';
+                       
+
+                    }
+    
+                    $("#menulist").html(html);
+                    // location.href = '../login/userinfo?tid=0';
+                 }
+                    
+               });
+    
+    })
+    </script>
+    
+</body>
+</html>

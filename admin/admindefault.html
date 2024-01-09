@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <link href="../common/css/layui.css" rel="stylesheet" />
+    <script src="../common/js/jquery.min.js"></script>
+    <script src="../common/js/layui.js"></script>
+    <style type="text/css">
+        .x-iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        .layui-tab-item {
+            width: 100%;
+            height: 100%;
+        }
+
+        .layui-nav-tree dd {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-bg-black layui-header">
+        <div class="layui-logo" style="color: aqua;">新闻管理系统</div>
+        <ul class="layui-nav layui-layout-left" id="menlist">
+            <li class="layui-nav-item layui-this" data="dh1"><a href="javascript:;">管理设置</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item" lay-unselect="">
+                <a href="javascript:;"><img src="../common/image/user.jpg" class="layui-nav-img">系统管理员 &nbsp;&nbsp;&nbsp;&nbsp;admin</a>
+                <dl class="layui-nav-child">
+                    
+                    <dd><a href="login.html">退出</a></dd>
+                </dl>
+                <!--<dl class="layui-nav-child">-->
+                    <!--<dd><a href="javascript:;">修改信息</a></dd>-->
+                    <!--<dd><a href="javascript:;">安全管理</a></dd>-->
+                    <!--<dd><a href="login">退了</a></dd>-->
+                <!--</dl>-->
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+
+
+                <!-- <li class="layui-nav-item">
+                    <a class="" href="javascript:;"><span>用户管理</span></a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a _href="userinfo.html" data-url="userinfo.html" data-icon="&#xe60a;" data-title="用户列表" kit-target data-id="us1">
+                                <cite>用户列表</cite>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a _href="adduserinfo.html" data-url="adduserinfo.html" data-icon="&#xe63c;" data-title="新增用户" kit-target data-id="us2">
+                                <cite>新增用户</cite>
+                            </a>
+                        </dd>
+
+                    </dl>
+                </li> -->
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;"><span>新闻管理</span></a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a _href="newslist.html" data-url="newslist.html" data-icon="&#xe60a;" data-title="新闻列表" kit-target data-id="cpfl1">
+                                <cite>新闻列表</cite>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a _href="addnews.html" data-url="addnews.html" data-icon="&#xe63c;" data-title="新闻录入" kit-target data-id="cpfl2">
+                                <cite>新闻录入</cite>
+                            </a>
+                        </dd>
+                    </dl>
+                </li>
+
+                
+
+                
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div class="layui-tab tab" lay-filter="mainTab" lay-allowclose="false">
+            <ul class="layui-tab-title">
+                <li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
+            </ul>
+            <div class="layui-tab-content" style="height: 700px;">
+                <div class="layui-tab-item layui-show" style="height: auto">
+
+                  <h1>欢迎来到后台网站管理系统</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    $(function () {
+        //JavaScript代码区域
+        layui.use('element', function () {
+            var element = layui.element;
+
+
+            $(".layui-nav-tree dd").click(function (event) {
+                var url = $(this).children('a').attr('_href');
+                var title = $(this).find('cite').html();
+                var index = $('.layui-nav-tree dd').index($(this));
+                //遍历打开的窗口，如果当前点击的选项已经打开，则跳转到对应窗口去，不再执行for外面的两条语句，创建新窗口
+                for (var i = 0; i < $('.x-iframe').length; i++) {
+                    if ($('.x-iframe').eq(i).attr('tab-id') == index + 1) {
+                        tab.tabChange(index + 1);
+                        event.stopPropagation();
+                        return;
+                    }
+                };
+                tab.tabAdd(title, url, index + 1);
+                tab.tabChange(index + 1);
+            });
+
+            //点击新增子页面
+            var tab = {
+                tabAdd: function (title, url, id) {
+                    element.tabAdd('mainTab', {
+                        title: title,//用于演示
+                        content: '<iframe tab-id="' + id + '" frameborder="0" src="' + url + '" scrolling="yes" class="x-iframe"></iframe>',
+                        id: id //实际使用一般是规定好的id，这里以时间戳模拟下
+                    })
+                },
+                tabDelete: function (othis) {
+                    element.tabDelete('mainTab', id);
+                    othis.addClass('layui-btn-disabled');
+                },
+                tabChange: function (id) {
+                    //切换到指定Tab项
+                    element.tabChange('mainTab', id); //切换到：用户管理
+                }
+            };
+        });
+
+    })
+
+</script>
+
+
+
+<script>
+    //对应顶部导航栏与左边菜单栏
+    window.onload = function () {
+        var obj_lis = document.getElementById("menlist").getElementsByTagName("li");
+        for (i = 0; i < obj_lis.length; i++) {
+            obj_lis[i].onclick = function () {
+
+                $(".layui-nav-tree>.layui-nav-itemed").css("display", "none")
+                $(".layui-nav-tree>." + $(".layui-this").attr("data") + "").css("display", "block")
+            }
+        }
+    }
+</script>

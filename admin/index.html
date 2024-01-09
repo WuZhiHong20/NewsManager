@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- 头部 -->
+    
+    <div class="cheader">
+        <div class="w1200 clearfix">
+            <div class="fl lp clearfix">              
+                <div class="v-type fl">
+                    <a href="index.html">首页</a>
+                    
+                    <a href="typelist.html?tid=1">分类</a>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- 主体 -->
+    <div class="content mb40">
+        <div class="banner"><img src="/image/luobo.jpg" alt="" style="width: 1920px;height: 450px;"></div>
+        <div class="w1200">
+            
+            
+            <div class="part-item">
+                <div class="recommend_head clearfix">
+                    <div class="fl recommend_type clearfix">
+                        <h2 class="fl">新闻管理</h2>
+                    </div>
+                    <div class="fr more">
+                        <a href="list.html">更多新闻</a>
+                        <img src="../image/icon-3.png" alt="">
+                    </div>
+                </div>
+                <div class="list">
+                    <ul class="clearfix" id="commonlist">
+                        
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer">
+        <div class="w1200 clearfix" >
+            
+            <div class="con fl2" style="text-align: center;">
+                <div class="d1">
+                    <a href="">关于我们</a>
+                    <span>｜</span>
+                    <a href="">使用帮助</a>
+                    <span>｜</span>
+                    <a href="">联系我们</a>
+                    <span>｜</span>
+                    
+                </div>
+                <div class="d2">欢迎来到新闻网站，该网站版权归属于作者</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://img.chuandong.com/common/script/jquery2.1.js"></script>
+    <script>
+        $(function(){
+            
+           
+            $.ajax({
+                    url: "http://127.0.0.1:8012/api/SelectNewsTopAll",
+                    type: 'POST',
+                    async: false,
+                    // dataType: 'html',            
+                    success: function (data)
+                     {
+                        var arr=data;
+                        var html='';
+                        for(var i=0;i<arr.length;i++)     
+                        {
+                            // alert(arr[i].id);
+                            html+='<li>';
+                            html+='<a href="czinformation.html?id='+arr[i].id+'">';
+                            html+='<div class="cover"><img src="/image/'+arr[i].photo+'.png" alt="" style="width:220px;height:160px;"></div>';
+                            html+='<div class="con">';
+                            html+='<p class="title">'+arr[i].title+'</p>';
+                            html+='<div class="clearfix">';
+                            html+='<span class="price fl">类型：'+arr[i].typename+'</span>';
+                            
+                            html+='</div>';
+                            html+='</div>';
+                            html+='</a>';
+                            html+='</li>';
+                           
+
+                        }
+        
+                        $("#commonlist").html(html);
+                       
+                     }
+                        
+                   });
+        
+        })
+        </script>
+
+         <script>
+            $(function(){
+                $("#searchBtn").click(function(){
+                    var inp=$("#searchWord").val();
+                    if(inp!=""||inp!=null)
+                    {
+                        window.location.href="search.html?txt="+inp;
+                    }
+                })
+
+            })
+        </script>
+</body>
+</html>

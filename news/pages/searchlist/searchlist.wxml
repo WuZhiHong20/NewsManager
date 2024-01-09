@@ -1,0 +1,24 @@
+
+  <view class="bargain-wrapper">
+    <view class="bargain-header">
+      <text>新闻分类管理</text> 
+    </view>
+    <view class="bargain-item"  style="width:105px;float:left;height: 200px;" wx:for="{{bargainList}}" wx:key="*this" bindtap="videoxq"  data-index="{{item.id}}">
+    <view style="width:105px;">
+      <image class="bargain-img" src="/images/{{item.photo}}.png" style="width: 105px;"></image>
+      <view class="bargain-info">
+        <view class="info-header">
+          <text class="title">{{item.title}}</text>
+          <text class="desc">类型:{{item.typename}}  </text>
+          
+          <text style="margin-top: 10%;">时间:{{item.addtime}}</text>
+        </view>
+      </view>
+    </view>
+    </view>
+
+
+
+  </view>
+
+ 

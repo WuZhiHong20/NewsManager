@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../common/css/layui.css" rel="stylesheet" />
+    <style>
+        #ytj .layui-form-switch {
+            border-color: #5FB878;
+            background-color: #5FB878;
+        }
+
+        #ytj em {
+            color: white;
+        }
+
+        #ytj i {
+            background-color: white
+        }
+    </style>
+</head>
+<body>
+
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>新闻列表</legend>
+</fieldset>
+
+<div class="layui-form">
+    <table class="layui-table">
+        <colgroup>
+
+            <col width="10%">
+            <col width="15%">
+            <col width="20%">
+            <col width="15%">           
+            <col width="20%">       
+            <col width="20%">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>商品图</th>
+            <th>名称</th>
+            <th>描述</th>
+            <th>类型</th>          
+            <th>时间</th>     
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="tabs">
+
+        </tbody>
+    </table>
+</div>
+
+
+
+<div id="demo7"></div>
+<ul id="biuuu_city_list"></ul>
+<script src="../common/js/jquery.min.js"></script>
+<script src="../common/js/layui.js"></script>
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+
+    });
+
+</script>
+
+
+<script>
+$(function(){
+    
+   //获取所有用户信息 
+    $.ajax({
+            url: "http://127.0.0.1:8012/api/SelectNewsAll",
+            type: 'POST',
+            async: false,
+            // dataType: 'html',            
+            success: function (data)
+             {
+                var arr=data;
+                var html='';
+                for(var i=0;i<arr.length;i++)     
+                {
+                    // alert(arr[i].id);
+                    html+='<tr>';
+                    html+='<td><img src="/image/'+arr[i].photo+'.png" style="width:100px;"></td>';
+                    html+='<td>'+arr[i].title+'</td>';
+                    html+='<td>'+arr[i].introduction+'</td>';
+                    html+='<td>'+arr[i].typename+'</td>';
+                    html+='<td>'+arr[i].addtime+'</td>';
+                    html+='<td>';
+                    html+='<a class="layui-btn layui-btn-mini news_edit" href="updatenews.html?id='+arr[i].id+'"><i class="iconfont icon-edit"></i>编辑</a>';
+                    html+='<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+arr[i].id+'"><i class="layui-icon"></i> 删除</a>';                   
+                    html+='</td>';
+                    html+='</tr>';
+                }
+
+                $("#tabs").html(html);
+                // location.href = '../login/userinfo?tid=0';
+             }
+                
+           });
+
+})
+</script>
+<script>
+    $(function () {
+        $("body").on("click", ".news_del", function () {  //删除
+            var _this = $(this);
+            layer.confirm('确定删除此信息？', { icon: 3, title: '提示信息' }, function (index) {
+                $.ajax({
+                    url: "http://127.0.0.1:8012/api/DelNewsById",
+                    type: 'POST',
+                    async: false,
+                    dataType: 'html',
+                    data: { id: _this.attr("data-id")},
+                    success: function (data)
+                    {
+                        if(data==1)
+                        {
+                            location.href = 'newslist.html';
+                        }
+                        else
+                        {
+                            layer.msg("操作失败！", { icon: 2 }, function () { location.href = location; });
+                        }
+                        
+                    }
+                });
+            });
+        });
+    })
+</script>
+
+</body>
+</html>

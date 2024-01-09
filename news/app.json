@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/newindex/newindex",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/newsdetail/newsdetail",
+    "pages/newstypes/newstypes",
+    "pages/searchlist/searchlist"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "新闻",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "selectedColor": "#ed3f14",
+    "list": [
+      {
+        "pagePath": "pages/newindex/newindex",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_select.png"
+      },
+      {
+        "pagePath": "pages/newstypes/newstypes",
+        "text": "分类",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_select.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "disableABTest": true,
+      "sdkVersionBegin": "3.0.0",
+      "sdkVersionEnd": "15.255.255"
+    }
+  },
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

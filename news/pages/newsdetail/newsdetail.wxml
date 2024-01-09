@@ -1,0 +1,17 @@
+<view class="container" >
+
+<view class="title">{{bargaincomm.title}}</view>
+  <view class="add_date" style="font-size: 14px;"><text>作者：{{bargaincomm.author}}</text>   <text style="margin-left: 10px; ">时间：{{bargaincomm.addtime}}</text></view>
+  <view class="poster" style="margin-top: 5%;">
+    <image src="/images/{{bargaincomm.photo}}.png" mode="widthFix" style="width: 300rpx;height:300rpx;"></image>
+    
+  </view>
+  <view class="content">
+    {{bargaincomm.descript}}
+  </view>
+  
+  <!-- 收藏/取消按钮 -->
+  <button bindtap="cancelFavorites" bindtap="ysc" data-index="{{bargaincomm.id}}" wx:if="{{isAdd}}" plain>❤已收藏</button>
+  <button bindtap="addFavorites" bindtap="wsc" data-index="{{bargaincomm.id}}" wx:else plain>❤点击收藏</button>
+
+</view>

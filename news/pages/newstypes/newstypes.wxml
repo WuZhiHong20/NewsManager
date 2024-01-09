@@ -1,0 +1,13 @@
+
+  
+  
+  <view class="bargain-wrapper">
+    <view class="bargain-header">
+      <text>新闻类型管理</text> 
+    </view>
+    <view wx:for="{{Typedata}}" wx:key="*this"  data-index="{{item.name}}" bindtap="typestr" style="float: left;text-align: center;margin-top: 5%;">
+    <view style="width: 80px;background-color: bisque;margin: 6px;">{{item.name}}</view>
+    </view>
+
+  </view>
+
